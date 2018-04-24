@@ -1,0 +1,44 @@
+{
+    "name": "lab-dash",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "build": "tsc && webpack",
+        "clean": "rimraf build",
+        "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+        "@jupyter-widgets/jupyterlab-manager": "^0.35.0",
+        "@jupyterlab/codemirror": "^0.16.2",
+        "@jupyterlab/docregistry": "^0.16.2",
+        "@jupyterlab/notebook": "^0.16.2",
+        "@jupyterlab/outputarea": "^0.16.2",
+        "@jupyterlab/rendermime": "^0.16.2",
+        "@jupyterlab/services": "^2.0.2",
+        "@phosphor/widgets": "^1.5.0",
+        "jupyterlab_bokeh": "^0.5.0"
+    },
+    "devDependencies": {
+        "@types/codemirror": "0.0.56",
+        "css-loader": "^0.28.11",
+        "file-loader": "^1.1.11",
+        "raw-loader": "^0.5.1",
+        "rimraf": "^2.6.2",
+        "style-loader": "^0.21.0",
+        "typescript": "^2.8.3",
+        "url-loader": "^1.0.1",
+        "watch": "^1.0.2",
+        "webpack": "^4.6.0",
+        "webpack-cli": "^2.0.15",
+        "whatwg-fetch": "^2.0.4"
+    },
+    "files": [
+        "build",
+        "assets"
+    ],
+    "jupyterlab": {
+        "extension": true
+    },
+    "main": "build/index.js",
+    "types": "build/index.d.ts"
+}
