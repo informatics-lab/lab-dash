@@ -1,8 +1,8 @@
 import os
 from tornado import web
 from .logging_mixin import Logging
-TEMPLATE_DIR = os.path.join(os.path.dirname(__file__),'..','..','assets')
-
+from .. import helpers
+import os
 
 class HomeHandler(web.RequestHandler, Logging):
     """Handle requests between the main app page and notebook server."""
@@ -10,7 +10,7 @@ class HomeHandler(web.RequestHandler, Logging):
     def get(self):
         """Get the main page for the application's interface."""
         self.logger.info('get main page')
-        return self.render(os.path.join(TEMPLATE_DIR, 'index.html'),
+        return self.render(os.path.join(helpers.TEMPLATE_DIR, 'index.html'),
             static='', base_url='/', notebook='',
             token='none')
 

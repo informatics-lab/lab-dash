@@ -15,6 +15,7 @@
         "@jupyterlab/outputarea": "^0.16.2",
         "@jupyterlab/rendermime": "^0.16.2",
         "@jupyterlab/services": "^2.0.2",
+        "@jupyterlab/theme-light-extension": "^0.16.2",
         "@phosphor/widgets": "^1.5.0",
         "jupyterlab_bokeh": "^0.5.0"
     },

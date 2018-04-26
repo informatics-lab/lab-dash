@@ -2,11 +2,11 @@
 # from jinja2 import FileSystemLoader
 # from notebook.base.handlers import IPythonHandler, FileFindHandler
 import logging
-from tornado import web,ioloop
+from tornado import web, ioloop
 from notebook.services.kernels.kernelmanager import MappingKernelManager
 import os
 from jupyter_client.kernelspec import KernelSpecManager
-from .handlers import pages_handler, kernels_handler, kernelspecs_handler
+from .handlers import pages_handler, kernels_handler, kernelspecs_handler, content_handeler, sessions_handeler
 
 logger = logging.getLogger("lab_dash")
 
@@ -17,7 +17,12 @@ settings = dict(
     logger=logger
 )
 
-default_handlers = pages_handler.default_handlers + kernels_handler.default_handlers + kernelspecs_handler.default_handlers
+default_handlers = (pages_handler.default_handlers + 
+                    kernels_handler.default_handlers + 
+                    kernelspecs_handler.default_handlers + 
+                    content_handeler.default_handlers + 
+                    sessions_handeler.default_handlers)
+
 static_handler = (r'/(.*)', web.StaticFileHandler, {'path': os.path.join(os.path.dirname(__file__), '..', '..' ,'build')})
 default_handlers += [static_handler]
 
