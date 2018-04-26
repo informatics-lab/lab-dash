@@ -66,6 +66,8 @@
 
 
 import { JupyterLab } from '@jupyterlab/application'
+import bokeh_plugin from 'jupyterlab_bokeh/lib'
+import widgetManagerProvider from '@jupyter-widgets/jupyterlab-manager'
 
 
 window.addEventListener('load', function () {
@@ -73,6 +75,13 @@ window.addEventListener('load', function () {
         name: 'JupyterLab Example',
         namespace: 'lab-example'
     });
-    //   lab.registerPluginModules(mods);
-    lab.start();
+    lab.registerPlugin(bokeh_plugin);
+    lab.registerPlugin(widgetManagerProvider);
+    //lab.start();
+    
+    each(docRegistry.widgetExtensions('Notebook'), (ext) => {
+        ext.createNew(panel as any, context as any)
+    })
+
+
 });
