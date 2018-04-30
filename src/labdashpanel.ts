@@ -9,7 +9,7 @@ import bokeh_plugin from 'jupyterlab_bokeh/lib'
 import widgetManagerProvider from '@jupyter-widgets/jupyterlab-manager'
 import { /* Notebook, */ NotebookWidgetFactory, /* NotebookModelFactory, */ NotebookPanel } from '@jupyterlab/notebook';
 import { each } from '@phosphor/algorithm';
-
+import {getProgressInstance} from './loader';
 
 class CodeCellWidget extends SimplifiedOutputArea {
     public number: number;
@@ -29,12 +29,9 @@ class CodeCellWidget extends SimplifiedOutputArea {
             { 'cell_number': this.number }
         )
         this.future = this.kernel.sendShellMessage(msg, true)
+        return this.future.done
     }
 }
-
-
-
-
 
 export class LabDashPanel extends Panel {
     private nb: NotebookJSON;
@@ -72,9 +69,12 @@ export class LabDashPanel extends Panel {
         bokeh_plugin.activate(mocApp as any)
         let context = {
             session: {
+                statusChanged: {
+                    connect: () => {}
+                },
                 kernel:this.kernel,
                 kernelChanged: {
-                    connect: () => { }
+                    connect: () => {}
                 }
             }
         }
@@ -95,18 +95,24 @@ export class LabDashPanel extends Panel {
 
     private _build(): void {
         let cell_count = 0;
+        getProgressInstance().target = this.nb.cells.length;
         for (let cell of this.nb.cells) {
             if (cell.cell_type == 'code') {
                 let outputWidget = new CodeCellWidget(cell_count, this.kernel, this.rendermime)
                 this.addWidget(outputWidget)
-                outputWidget.run()
+                outputWidget.run().then(()=>{
+                    getProgressInstance().incProgress(1)
+                })
             } else if (cell.cell_type == 'markdown') {
                 let mimeModel = new MimeModel({ data: { 'text/markdown': cell.source } });
                 let render = this.rendermime.createRenderer('text/markdown');
                 this.addWidget(render);
-                render.renderModel(mimeModel);
+                render.renderModel(mimeModel).then(()=>{
+                    getProgressInstance().incProgress(1)
+                });
             } else {
                 console.warn('Can not render cell type ', cell.cell_type, cell)
+                getProgressInstance().incProgress(1)
             }
             cell_count++
         }

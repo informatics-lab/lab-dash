@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@jupyter-widgets/jupyterlab-manager": "^0.35.0",
+        "@jupyterlab/application": "^0.16.3",
         "@jupyterlab/codemirror": "^0.16.2",
         "@jupyterlab/docregistry": "^0.16.2",
         "@jupyterlab/notebook": "^0.16.2",

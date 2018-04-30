@@ -94,20 +94,6 @@ class ChannelsHandler(ZMQChannelsHandler, Logging):
             }
             msg = json.dumps(msg_obj)
 
-            # """{"header":{"username":"","version":"5.2","session":"4f47f8237ed331d3cd005270287f8309",
-            # "msg_id":"37e55dd617b3a6f679c20ccc419fcd74","msg_type":"execute_request"},
-            # "parent_header":{},"channel":"shell",
-            # "content":{
-            #     "silent":false,
-            #     "store_history":true,
-            #     "user_expressions":{},
-            #     "allow_stdin":true,
-            #     "stop_on_error":true,
-            #     "code":"print('hi')\nprint('hello')\n'this is the final greating'"
-            # },
-            # "metadata":{},
-            # "buffers":[]}"""
-
             self.logger.info('**NEW MESSAGE**: %s' % msg)
         
         super().on_message(msg)

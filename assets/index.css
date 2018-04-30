@@ -1,0 +1,17 @@
+body {
+    font-family: var(--jp-ui-font-family);
+    background: var(--jp-layout-color1);
+}
+
+.loader {
+    position: fixed;
+    top: 3em;
+    background: var(--jp-accent-color3);
+    left: 3em;
+    right: 3em;
+    padding: 1em;
+    font-size: 300%;
+    border: var(--jp-border-color3);
+    border-radius: 1em;
+    box-shadow: #ccc 0.1em 0.1em;
+}
